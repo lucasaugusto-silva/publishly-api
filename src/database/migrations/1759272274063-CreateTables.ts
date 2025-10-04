@@ -4,7 +4,7 @@ export class CreateTables1759272274063 implements MigrationInterface {
     name = 'CreateTables1759272274063'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TABLE "users" ("userId" SERIAL NOT NULL, "name" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_8bf09ba754322ab9c22a215c919" PRIMARY KEY ("userId"))`);
+        await queryRunner.query(`CREATE TABLE "users" ("userId" SERIAL NOT NULL, "name" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password" character varying(255) NOT NULL,"created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_8bf09ba754322ab9c22a215c919" PRIMARY KEY ("userId"))`);
         await queryRunner.query(`CREATE TYPE "public"."posts_status_enum" AS ENUM('draft', 'published', 'archived')`);
         await queryRunner.query(`CREATE TABLE "posts" ("postId" SERIAL NOT NULL, "authorId" integer NOT NULL, "title" character varying(255) NOT NULL, "text" text NOT NULL, "status" "public"."posts_status_enum" NOT NULL DEFAULT 'draft', "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_cdc670193be6ca43f590dbabcee" PRIMARY KEY ("postId"))`);
         await queryRunner.query(`CREATE TYPE "public"."comments_status_enum" AS ENUM('pending', 'approved', 'rejected')`);
@@ -26,5 +26,4 @@ export class CreateTables1759272274063 implements MigrationInterface {
         await queryRunner.query(`DROP TYPE "public"."posts_status_enum"`);
         await queryRunner.query(`DROP TABLE "users"`);
     }
-
 }
